@@ -4,19 +4,13 @@ use std::fmt::{Display, Formatter};
 use self::parse_args::Frame;
 
 fn main() -> Result<(), self::parse_args::ParseError> {
-    match parse_args::parse_args() {
-        Err(e) => {
-            return Err(e);
-        },
-        Ok(frame) => {
-            let mut game = Game::new(frame);
-            let sleep_duration = std::time::Duration::from_millis(33);
-            loop {
-                println!("{}", game);
-                game.step();
-                std::thread::sleep(sleep_duration);
-            }
-        }
+    let frame = parse_args::parse_args()?;
+    let mut game = Game::new(frame);
+    let sleep_duration = std::time::Duration::from_millis(33);
+    loop {
+        println!("{}", game);
+        game.step();
+        std::thread::sleep(sleep_duration);
     }
 }
 
