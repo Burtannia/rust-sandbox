@@ -8,7 +8,9 @@ pub struct Frame {
 pub enum ParseError {
     TooManyArgs,
     TooFewArgs,
-    InvalidInteger(String)
+    InvalidInteger(String),
+    WidthTooSmall(u32),
+    HeightTooSmall(u32)
 }
 
 fn parse_u32(s: String) -> Result<u32, ParseError> {
@@ -53,6 +55,14 @@ pub fn parse_args() -> Result<Frame, ParseError> {
 
     let width = parse_u32(width_str)?;
     let height = parse_u32(height_str)?;
+
+    if width < 5 {
+        return Err(ParseError::WidthTooSmall(width));
+    }
+
+    if height < 5 {
+        return Err(ParseError::HeightTooSmall(height));
+    }
 
     Ok(Frame { width, height } )
 }

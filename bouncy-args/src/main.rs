@@ -3,11 +3,10 @@ mod parse_args;
 use std::fmt::{Display, Formatter};
 use self::parse_args::Frame;
 
-fn main() {
+fn main() -> Result<(), self::parse_args::ParseError> {
     match parse_args::parse_args() {
         Err(e) => {
-            // prints to stderr instead of stdout
-            eprintln!("Error parsing args: {:?}", e);
+            return Err(e);
         },
         Ok(frame) => {
             let mut game = Game::new(frame);
