@@ -1,5 +1,5 @@
-#[derive(Debug, Clone)]
-struct Foobar(i32);
+// #[derive(Debug, Clone)]
+// struct Foobar(i32);
 
 impl Drop for Foobar {
     fn drop(&mut self) {
@@ -159,3 +159,20 @@ impl Drop for Foobar {
 //   uses_foobar(x);
 //   uses_foobar(x);
 // }
+
+////////////////////
+//// Exercise 4 ////
+////////////////////
+
+#[derive(Debug)]
+struct Foobar(i32);
+
+fn main() {
+    let x: Foobar = Foobar(1);
+    let y: Foobar = double(x);
+    println!("{}", y.0);
+}
+
+fn double(foo: Foobar) -> Foobar {
+    Foobar(foo.0 * 2)
+}
