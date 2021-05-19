@@ -7,5 +7,5 @@ pub fn main() {
 fn sum<F>(f: F) -> F::Item where
     F: Iterator,
     F::Item: std::ops::Add<Output=F::Item> + From<u8>{
-    f.fold(From::from(0u8), |x, total| x + total)
+    f.fold(From::from(0u8), |x, total| x + total) // could also do f.fold(From::from(0u8), std::ops::Add::add)
 }
